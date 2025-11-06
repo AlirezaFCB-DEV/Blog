@@ -1,5 +1,5 @@
 from django.db import models
-from .managers import Published_Manager
+from .managers import Post_Manager
 
 # Create your models here.
 class Post(models.Model):
@@ -9,8 +9,7 @@ class Post(models.Model):
     published = models.BooleanField(default=False )
     created_at = models.DateTimeField(auto_now_add=True)
     
-    objects = models.Manager()
-    published_posts = Published_Manager()
+    objects = Post_Manager()
     
     def __str__(self):
         return self.title
