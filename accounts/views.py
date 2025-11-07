@@ -35,7 +35,7 @@ def register_user(req):
 
     return JsonResponse({"error": "Invalid request method"}, status=405)
 
-
+@csrf_exempt
 def login_user(req):
     """
     This view is used to log a user into the system.
@@ -52,7 +52,7 @@ def login_user(req):
 
         user = authenticate(req, email=email, password=password)
         if user is not None:
-            return JsonResponse({"message": f"User logged in successfully , user_name={user.first_name}"}, status=200)
+            return JsonResponse({"message": f"User logged in successfully , email={user.email}"}, status=200)
 
         return JsonResponse({"error": "Invalid credentials"}, status=401)
 
