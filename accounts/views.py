@@ -86,10 +86,11 @@ def profile_view(req):
     user = req.user
     return JsonResponse({"first_name": user.first_name, "email": user.email, "is_staff": user.is_staff, "is_superuser": user.is_superuser, "permissions": list(user.get_all_permissions())}, status=200)
 
+@csrf_exempt
 def upload_profile_img(req) :
     if req.method == "POST" :
         user = User.objects.first()
-        profile = Profile.objects.get_or_create(user=user)
+        profile, created = Profile.objects.get_or_create(user=user)
         profile.image = req.FILES.get("image")
         profile.save()
         return JsonResponse({"message" : "Image uploaded successfully!"})
