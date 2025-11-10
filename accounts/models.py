@@ -40,11 +40,14 @@ class User (AbstractBaseUser, PermissionsMixin):
         return self.email
 
 
+def user_directory_path (instance , file_name):
+    return f"user_{instance.user.id}/{file_name}"
+
 class Profile (models.Model) :
     user = models.OneToOneField(User , on_delete=models.CASCADE)
     bio = models.TextField(blank=True)
-    profile_img = models.ImageField(upload_to="profiles/" , blank=True , null=True)
+    profile_img = models.ImageField(upload_to=user_directory_path , blank=True , null=True)
     
-    def __str__(self):
+    def __str__(self):      
         return f"Profile of {self.user.first_name} {self.user.last_name}"
     
