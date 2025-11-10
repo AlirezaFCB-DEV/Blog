@@ -3,6 +3,8 @@ from django.contrib.auth.decorators import permission_required, login_required
 from django.contrib.auth import get_user_model, authenticate, logout, login
 from django.views.decorators.csrf import csrf_exempt
 
+from .models import Profile
+
 import json
 
 User = get_user_model()
@@ -52,6 +54,7 @@ def login_user(req):
 
         user = authenticate(req, email=email, password=password)
         if user is not None:
+            login(user , req)
             return JsonResponse({"message": f"User logged in successfully , email={user.email}"}, status=200)
 
         return JsonResponse({"error": "Invalid credentials"}, status=401)
@@ -82,4 +85,12 @@ def profile_view(req):
     """
     user = req.user
     return JsonResponse({"first_name": user.first_name, "email": user.email, "is_staff": user.is_staff, "is_superuser": user.is_superuser, "permissions": list(user.get_all_permissions())}, status=200)
-    pass
+
+def upload_profile_img(req) :
+    if req.method == "POST" :
+        user = User.objects.first()
+        profile = Profile.objects.get_or_create(user=user)
+        profile.image = req.FILES.get("image")
+        profile.save()
+        return JsonResponse({"message" : "Image uploaded successfully!"})
+    return JsonResponse({"error" : "Invalid Request!!"} , status=400)
