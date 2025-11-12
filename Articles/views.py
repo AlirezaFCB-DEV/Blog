@@ -1,17 +1,13 @@
 from django.views import View
-from django.http import HttpResponse
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import JsonResponse
+from django.views.generic import ListView
 
+from .models import Article
 # Create your views here.
 
-class Article_View (View) :
-    def get (self , req) :
-        return HttpResponse("A Response Of Get Method On Article View!")
+class Article_List_View(ListView) :
+    model = Article
     
-    def post(self, req) :
-        return HttpResponse()
-    
-#! A Class View For Test Mixins
-class Profile_View (View , LoginRequiredMixin) :
-    def get(self , req) :
-        return HttpResponse("Profile View For Logged Users.!!")
+    def render_to_response(self, context, **response_kwargs):
+         data = list(context["object_list"].values())
+         return JsonResponse(data , safe=False)
