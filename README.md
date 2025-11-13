@@ -8,8 +8,7 @@
 ## Overview
 
 This is a **learning-focused** Django project containing **one Django app** (`blog`) that includes an `accounts` section with a **custom user model**. The goal is **hands-on development** – not production readiness.
-
-- **Frontend**: Handled entirely in **React** (or any JS framework) → **No Django templates** are used.  
+ 
 - **Backend**: Pure Django – API-ready, modular, and extensible.  
 - **Purpose**: Master 13 professional Django topics **project-first** while building a real blog.
 
@@ -31,9 +30,7 @@ This is a **learning-focused** Django project containing **one Django app** (`bl
 |-------------|--------------------------------|
 | Backend     | Django (latest)                |
 | Auth        | Custom User + Django auth      |
-| Frontend    | **React** (or Vue/Any) – SSR   |
-| Database    | SQLite (dev) → PostgreSQL (prod)|
-| Deployment  | Gunicorn / Uvicorn (later)     |
+| Database    | SQLite (dev)                   |
 
 ---
 
